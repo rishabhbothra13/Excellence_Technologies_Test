@@ -1,0 +1,95 @@
+1) some_numbers = [1,2,3,4,5]
+def get_sum(numbers):
+  sum = 0
+  for i in numbers:
+    sum = sum + i
+  return sum
+
+2)
+# considering different ids can have same score
+def get_id_with_max_score(data):
+  max_score = 0
+  ids_with_max_score = []
+  for id_ in data:
+    if data[_id] > max_score:
+      max_score = data[_id]
+      ids_with_max_score = [_id]
+    elif data[_id] == max_score:
+      ids_with_max_score.append(id_)
+      
+  return {id_: data[id_] for id_ in ids_with_max_score}
+
+3)
+def get_maximum_consecutive_ones(arr):
+  max_consecutives_ones = 0
+  current_consecutive_ones = 0
+  for ele in arr:
+    if ele == 1:
+      current_consecutive_ones += 1
+      if max_consecutives_ones < current_consecutive_ones:
+        max_consecutives_ones = current_consecutive_ones
+    else:
+      current_consecutive_ones = 0
+  return max_consecutives_ones
+  
+  
+4)
+from django.db import models
+class Candidate(models.Models):
+  name = models.CharField()
+  email_address = models.EmailField()
+  
+  class Meta:
+    db_table = candidate
+    
+class TestScore(models.Models):
+  user = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+  first_round_score = models.IntegerField(max_value=10)
+  second_round_score = models.IntegerField(max_value=10)
+  third_round_score = models.IntegerField(max_value=10)
+  
+  class Meta:
+    db_table = test_score
+    
+a)
+
+class CandidateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Candidate
+        fields = '__all__'
+        
+ class CreateCandidate(CreateAPIView):
+  queryset = Candidate.objects.all()
+  serializer_class = CandidateSerializer
+  
+  url('/api/create-candidate', CreateCandidate.as_view())
+  
+ b)
+ class TestScoreSerializer(serializers.ModelSerializer):
+  class Meta:
+        model = TestScore
+        fields = '__all__'
+        
+ class CreateTestScore(CreateAPIView):
+  queryset = TestScore.objects.all()
+  serializer_class = TestScoreSerializer
+  
+  url('/api/create-test-score', CreateTestScore.as_view()) 
+  
+  ==================================
+  
+  route to save a user:
+  POST: /user/create
+  
+  route for login:
+  POST: /user/login
+  
+  add/update user address:
+  PUT/PATCH: /user/<user_id>/
+  
+  
+ 
+ 
+  
+  
+      
